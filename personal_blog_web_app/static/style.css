@@ -1,0 +1,31 @@
+div {
+    width: 300px;
+    border: solid ;
+    margin: 20px;
+    margin-left: auto;
+    margin-bottom: auto;
+    margin-right: auto;
+    padding: 25px;
+    padding-top: 0px;
+}
+ /* titles/subtitles */
+
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+}
+
+/* buttons */
+
+.addForm{
+    padding: 5px;
+    margin: auto;
+}
+
+.addButton {
+    border-radius: 5px;
+}
+
+.addButton:hover {
+    background-color: skyblue;
+}
