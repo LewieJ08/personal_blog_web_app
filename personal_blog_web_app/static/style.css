@@ -29,3 +29,18 @@ h1 {
 .addButton:hover {
     background-color: skyblue;
 }
+/*add screen */
+
+input {
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 5px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+textarea {
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 5px;
+    font-family: 'Courier New', Courier, monospace;
+}
