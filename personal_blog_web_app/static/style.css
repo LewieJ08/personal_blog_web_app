@@ -15,6 +15,21 @@ h1 {
     text-align: left;
 }
 
+h2 {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+}
+
+h3 {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+}
+
+h5 {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+}
+
 /* buttons */
 
 .addForm{
@@ -22,11 +37,13 @@ h1 {
     margin: auto;
 }
 
-.addButton {
+button {
     border-radius: 5px;
+    padding: 5px;
+    margin: 5px 5px;
 }
 
-.addButton:hover {
+button:hover {
     background-color: skyblue;
 }
 /*add screen */
