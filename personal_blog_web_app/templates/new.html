@@ -6,12 +6,22 @@
     </head>
     <body>
         <div>
-            <h1>New Article</h1>
-            <form class="newArticleForm" action="/new" method="post">
-                <input type="text" placeholder="Article Title" id="title" name="title"> 
-                <input type="date" placeholder="Publishing Date" id="date" name="date"> <br> 
-                <textarea id="message" name="message" placeholder="Content" rows="10" cols="33"></textarea>
-            </form>
+            {% if title is not none %}
+                <h2>Article Added</h2>
+                <h3>Title: {{ title }}</h3>
+                <h5>Date: {{ date }}</h5>
+                <form action="{{url_for('admin')}}">
+                    <button type="submit">Return</button>
+                </form>
+            {% else %}
+                <h1>New Article</h1>
+                <form class="newArticleForm" action="{{url_for('new')}}" method="post">
+                    <input type="text" placeholder="Article Title" id="title" name="title"> 
+                    <input type="date" placeholder="Publishing Date" id="date" name="date"> <br> 
+                    <textarea id="content" name="content" placeholder="Content" rows="10" cols="33"></textarea>
+                    <button type="submit" >Publish</button>
+                </form>
+            {% endif %}
         </div>
     </body>
 </html>
