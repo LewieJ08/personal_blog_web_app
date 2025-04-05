@@ -21,12 +21,22 @@ def auth_required(f):
 @app.route("/", methods=["GET","POST"])
 
 def index():
-    return render_template("index.html")
+    with open(JSONFILE, "r") as file:
+        data = json.load(file)
 
-@app.route("/article", methods=["GET","POST"])
+    return render_template("index.html", articles = data)
 
-def article():
-    return render_template("article.html")
+@app.route("/article/<int:article_id>", methods=["GET","POST"])
+
+def article(article_id):
+    with open(JSONFILE, "r") as file:
+        data = json.load(file)
+
+    for item in data:
+        if item["id"] == article_id:
+            article = item
+
+    return render_template("article.html", article = article)
 
 # Admin pages
 
