@@ -1,0 +1,6 @@
+recursive-include personal_blog_web_app/templates index.html
+recursive-include personal_blog_web_app/templates article.html
+recursive-include personal_blog_web_app/templates admin.html
+recursive-include personal_blog_web_app/templates new.html
+recursive-include personal_blog_web_app/templates update.html
+recursive-include personal_blog_web_app/static style.css
