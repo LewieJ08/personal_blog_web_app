@@ -8,24 +8,8 @@ div {
     padding: 25px;
     padding-top: 0px;
 }
- /* titles/subtitles */
 
-h1 {
-    font-family: 'Courier New', Courier, monospace;
-    text-align: left;
-}
-
-h2 {
-    font-family: 'Courier New', Courier, monospace;
-    text-align: left;
-}
-
-h3 {
-    font-family: 'Courier New', Courier, monospace;
-    text-align: left;
-}
-
-h5 {
+.text {
     font-family: 'Courier New', Courier, monospace;
     text-align: left;
 }
