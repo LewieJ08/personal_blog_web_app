@@ -6,10 +6,17 @@
     </head>
     <body>
         <div>
-            <h1>Personal Blog</h1>
+            <h1 class="text">Personal Blog</h1>
             <form class="addForm" action="{{url_for('new')}}">
                 <button type="submit">Add</button>
             </form>
+            {% for article in articles %}
+                <li class="text">
+                    <a href="{{ url_for('article', article_id = article.id) }}">
+                    <strong>{{ article.title }}</strong>
+                    </a> - {{ article.date }}
+                </li> 
+            {% endfor %}
         </div>
     </body>
 </html>
