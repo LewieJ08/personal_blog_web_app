@@ -7,6 +7,23 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-    
+        <div>
+            {% if title is not none %}
+                <h2 class="text">Article Updated</h2>
+                <h3 class="text">Title: {{ title }}</h3>
+                <h5 class="text">Date: {{ date }}</h5>
+                <form action="{{url_for('admin')}}">
+                    <button type="submit">Return</button>
+                </form>
+            {% else %}
+                <h1 class="text">Edit {{ article.title }}</h1>
+                <form action="{{ url_for('edit', article_id = article.id) }}" method="post">
+                    <input type="text" placeholder="New Article Title" id="title" name="title"> 
+                    <input type="date" placeholder="Publishing Date" id="date" name="date"> <br> 
+                    <textarea id="content" name="content" placeholder="New Content" rows="10" cols="33"></textarea>
+                    <button type="submit" >Publish</button>
+                </form>
+            {% endif %}
+        </div>
     </body>
 </html>
