@@ -16,7 +16,13 @@
                 <li class="text">
                     <a href="{{ url_for('article', article_id = article.id) }}">
                     <strong>{{ article.title }}</strong>
-                    </a> - {{ article.date }}
+                    </a> 
+                    <form action="{{ url_for('edit', article_id = article.id) }}">
+                        <button type="submit">Edit</button>
+                    </form>
+                    <form action="{{ url_for('admin') }}" method="post">
+                        <button type="submit" name="delete" value="delete {{article.id}}">Delete</button>
+                    </form>
                 </li> 
             {% endfor %}
         </div>
