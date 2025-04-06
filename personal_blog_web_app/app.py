@@ -18,6 +18,24 @@ def auth_required(f):
     
     return decorated
 
+def format_content(content,max_chars = 80):
+    lines = []
+    for paragraph in content.splitlines():  
+        words = paragraph.split()
+        current_line = ""
+
+        for word in words:
+            if len(current_line) + len(word) + 1 > max_chars:
+                lines.append(current_line.rstrip())
+                current_line = ""
+
+            current_line += word + " "
+
+        if current_line:
+            lines.append(current_line.rstrip())
+
+    return '\r\n'.join(lines)
+
 @app.route("/", methods=["GET","POST"])
 
 def index():
@@ -44,7 +62,11 @@ def article(article_id):
 @auth_required
 
 def admin():
-    return render_template("admin.html")
+    with open(JSONFILE, "r") as file:
+        data = json.load(file)
+
+    return render_template("admin.html", articles = data)
+ 
 
 @app.route("/edit", methods=["GET","POST"])
 @auth_required
