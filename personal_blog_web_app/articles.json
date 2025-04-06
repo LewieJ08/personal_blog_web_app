@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "title": "Article 1",
+        "date": "2025-04-07",
+        "content": "this is example content for\r\nthe first article within this\r\nblog app."
+    },
+    {
+        "id": 2,
+        "title": "Article 2",
+        "date": "2025-04-07",
+        "content": "This is more example content\r\nfor the second article within\r\nthis blog app."
+    },
+    {
+        "id": 3,
+        "title": "Article 3",
+        "date": "2025-04-07",
+        "content": "blah blah blah, more example\r\ncontent for the blog app\r\n(star the repo)"
+    }
+]
