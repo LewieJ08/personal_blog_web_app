@@ -82,7 +82,7 @@ def admin():
             return render_template("admin.html", articles = data)
         
         with open(JSONFILE, "w") as file:
-            json.dump(new_articles,file,indent=4)
+            json.dump(new_articles, file, indent=4)
 
         return redirect(url_for('admin'))
 
@@ -93,7 +93,36 @@ def admin():
 @auth_required
 
 def edit(article_id):
-    return render_template("edit.html")
+    with open(JSONFILE, "r") as file:
+        data = json.load(file)
+
+    for item in data:
+            if item["id"] == article_id:
+                article = item
+
+    if request.method == "POST":
+        title = request.form["title"]
+        date = request.form["date"]
+        content = request.form["content"]
+
+        if not title or not date or not content:
+                print("Form field empty")
+                return render_template("edit.html", article = article, title = None)
+        
+        content = format_content(content, 30)
+
+        for item in data:
+            if item["id"] == article_id:
+                item["title"] = title
+                item["date"] = date
+                item["content"] = content
+
+        with open(JSONFILE, "w") as file:
+            json.dump(data, file, indent=4)
+
+        return render_template("edit.html", article = article, title = title, date = date)
+     
+    return render_template("edit.html", article = article, title = None)
 
 @app.route("/new", methods=["GET","POST"])
 @auth_required
@@ -102,43 +131,38 @@ def new():
     with open(JSONFILE, "r") as file:
         data = json.load(file)
 
-    try:
-        if request.method == "POST":
-            title = request.form["title"]
-            date = request.form["date"]
-            content = request.form["content"]
+    if request.method == "POST":
+        title = request.form["title"]
+        date = request.form["date"]
+        content = request.form["content"]
 
-            if not title or not date or not content:
-                print("Form field empty")
-                return render_template("new.html", title = None)
-            
-            content = format_content(content, 30)
-
-            iD = 1
-            current_ids = []
-
-            for item in data:
-                current_ids.append(item["id"])
-
-            while iD in current_ids:
-                iD += 1
-
-            data.append({
-                    "id": iD,
-                    "title": title,
-                    "date": date,
-                    "content": content
-                })
-            
-            with open(JSONFILE, "w") as file:
-                json.dump(data,file,indent=4)
-
-            return render_template("new.html", title = title, date = date)
+        if not title or not date or not content:
+            print("Form field empty")
+            return render_template("new.html", title = None)
         
-    except ValueError:
-        print("Form field empty")
-        return render_template("new.html",title = None)
-    
+        content = format_content(content, 30)
+
+        iD = 1
+        current_ids = []
+
+        for item in data:
+            current_ids.append(item["id"])
+
+        while iD in current_ids:
+            iD += 1
+
+        data.append({
+                "id": iD,
+                "title": title,
+                "date": date,
+                "content": content
+            })
+        
+        with open(JSONFILE, "w") as file:
+            json.dump(data,file,indent=4)
+
+        return render_template("new.html", title = title, date = date)
+
     return render_template("new.html",title = None)
 
 if __name__ == "__main__":
