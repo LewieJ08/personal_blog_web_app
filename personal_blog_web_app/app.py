@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, redirect, url_for
 from functools import wraps
 import os
 import json 
@@ -18,7 +18,7 @@ def auth_required(f):
     
     return decorated
 
-def format_content(content,max_chars = 80):
+def format_content(content,max_chars):
     lines = []
     for paragraph in content.splitlines():  
         words = paragraph.split()
@@ -65,13 +65,34 @@ def admin():
     with open(JSONFILE, "r") as file:
         data = json.load(file)
 
+    new_articles = []
+
+    if request.method == "POST":
+        delete = request.form["delete"]
+
+        delete = delete.split(" ",1)
+        article_id = delete[1]
+
+        for item in data:
+            if item["id"] != int(article_id):
+                new_articles.append(item)
+
+        if len(new_articles) == len(data):
+            print("Article not found.")
+            return render_template("admin.html", articles = data)
+        
+        with open(JSONFILE, "w") as file:
+            json.dump(new_articles,file,indent=4)
+
+        return redirect(url_for('admin'))
+
     return render_template("admin.html", articles = data)
  
 
-@app.route("/edit", methods=["GET","POST"])
+@app.route("/edit/<int:article_id>", methods=["GET","POST"])
 @auth_required
 
-def edit():
+def edit(article_id):
     return render_template("edit.html")
 
 @app.route("/new", methods=["GET","POST"])
@@ -90,6 +111,8 @@ def new():
             if not title or not date or not content:
                 print("Form field empty")
                 return render_template("new.html", title = None)
+            
+            content = format_content(content, 30)
 
             iD = 1
             current_ids = []
